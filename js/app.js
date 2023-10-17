@@ -28,5 +28,22 @@ function readCourseData(course) {
     title: course.querySelector("h4").textContent,
   };
   itemsCart = [...itemsCart, courseInfo];
-  console.log(itemsCart);
+  htmlCart();
+}
+
+function htmlCart() {
+  cleanHtml();
+  itemsCart.forEach((course) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${course.title}</td>
+    `;
+    cartContainer.appendChild(row);
+  });
+}
+
+function cleanHtml() {
+  while (cartContainer.firstChild) {
+    cartContainer.removeChild(cartContainer.firstChild);
+  }
 }
