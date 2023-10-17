@@ -9,6 +9,7 @@ loadEventListeners();
 
 function loadEventListeners() {
   listCourses.addEventListener("click", addCourse);
+  cart.addEventListener("click", deleteCourse);
 }
 
 function addCourse(event) {
@@ -16,6 +17,14 @@ function addCourse(event) {
   if (event.target.classList.contains("add-cart")) {
     const selectedCourse = event.target.parentElement.parentElement;
     readCourseData(selectedCourse);
+  }
+}
+
+function deleteCourse(event) {
+  if (event.target.classList.contains("delete-course")) {
+    const courseId = event.target.getAttribute("data-id");
+    itemsCart = itemsCart.filter((course) => course.id !== courseId);
+    htmlCart();
   }
 }
 
