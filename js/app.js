@@ -34,9 +34,14 @@ function readCourseData(course) {
 function htmlCart() {
   cleanHtml();
   itemsCart.forEach((course) => {
+    const { image, title, price, quantity, id } = course;
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${course.title}</td>
+      <td><img src="${image}" width="150"></td>
+      <td>${title}</td>
+      <td>${price}</td>
+      <td>${quantity}</td>
+      <td><a href="#" class="delete-course" data-id="${id}">X</a></td>
     `;
     cartContainer.appendChild(row);
   });
