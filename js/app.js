@@ -27,7 +27,22 @@ function readCourseData(course) {
     quantity: 1,
     title: course.querySelector("h4").textContent,
   };
-  itemsCart = [...itemsCart, courseInfo];
+
+  const exist = itemsCart.some((course) => course.id === courseInfo.id);
+  if (exist) {
+    const courses = itemsCart.map((course) => {
+      if (course.id === courseInfo.id) {
+        course.quantity++;
+        return course;
+      } else {
+        return course;
+      }
+    });
+    itemsCart = [...courses];
+  } else {
+    itemsCart = [...itemsCart, courseInfo];
+  }
+
   htmlCart();
 }
 
