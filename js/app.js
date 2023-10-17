@@ -10,6 +10,10 @@ loadEventListeners();
 function loadEventListeners() {
   listCourses.addEventListener("click", addCourse);
   cart.addEventListener("click", deleteCourse);
+  emptyCartBtn.addEventListener("click", () => {
+    itemsCart = [];
+    cleanHtml();
+  })
 }
 
 function addCourse(event) {
