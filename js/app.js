@@ -1,21 +1,4 @@
-const cart = document.querySelector("#cart");
-const cartContainer = document.querySelector("#list-cart tbody");
-const emptyCartBtn = document.querySelector("#empty-cart");
-const listCourses = document.querySelector("#list-courses");
-
-let itemsCart = [];
-
-loadEventListeners();
-
-function loadEventListeners() {
-  listCourses.addEventListener("click", addCourse);
-  cart.addEventListener("click", deleteCourse);
-  emptyCartBtn.addEventListener("click", () => {
-    itemsCart = [];
-    cleanHtml();
-  })
-}
-
+// Function to add a course to the cart
 function addCourse(event) {
   event.preventDefault();
   if (event.target.classList.contains("add-cart")) {
@@ -24,14 +7,20 @@ function addCourse(event) {
   }
 }
 
+// Function to delete a course from the cart
 function deleteCourse(event) {
   if (event.target.classList.contains("delete-course")) {
     const courseId = event.target.getAttribute("data-id");
+
+    // Filter out the course with the matching id and update the itemsCart array
     itemsCart = itemsCart.filter((course) => course.id !== courseId);
+
+    // Update the cart content in the DOM
     htmlCart();
   }
 }
 
+// Function to read data of a selected course
 function readCourseData(course) {
   const courseInfo = {
     id: course.querySelector("a").getAttribute("data-id"),
@@ -41,8 +30,11 @@ function readCourseData(course) {
     title: course.querySelector("h4").textContent,
   };
 
+  // Check if the selected course already exists in the cart
   const exist = itemsCart.some((course) => course.id === courseInfo.id);
+
   if (exist) {
+    // If it exists, increment the quantity of the existing course
     const courses = itemsCart.map((course) => {
       if (course.id === courseInfo.id) {
         course.quantity++;
@@ -51,16 +43,24 @@ function readCourseData(course) {
         return course;
       }
     });
+
+    // Update the itemsCart array with the updated quantities
     itemsCart = [...courses];
   } else {
+    // If it doesn't exist, add the course to the itemsCart array
     itemsCart = [...itemsCart, courseInfo];
   }
 
+  // Update the cart content in the DOM
   htmlCart();
 }
 
+// Function to update the cart content in the DOM
 function htmlCart() {
+  // Clear the existing cart content in the DOM
   cleanHtml();
+
+  // Iterate through the itemsCart array and update the cart content in the DOM
   itemsCart.forEach((course) => {
     const { image, title, price, quantity, id } = course;
     const row = document.createElement("tr");
@@ -71,11 +71,15 @@ function htmlCart() {
       <td>${quantity}</td>
       <td><a href="#" class="delete-course" data-id="${id}">X</a></td>
     `;
+
+    // Append the row to the cartContainer in the DOM
     cartContainer.appendChild(row);
   });
 }
 
+// Function to clean the cart content in the DOM
 function cleanHtml() {
+  // Remove all child elements from the cartContainer in the DOM
   while (cartContainer.firstChild) {
     cartContainer.removeChild(cartContainer.firstChild);
   }
