@@ -1,3 +1,29 @@
+// Select DOM elements and assign them to variables
+const cart = document.querySelector("#cart"); // Get the element with the ID "cart"
+const cartContainer = document.querySelector("#list-cart tbody"); // Get the tbody within the element with the ID "list-cart"
+const emptyCartBtn = document.querySelector("#empty-cart"); // Get the button with the ID "empty-cart"
+const listCourses = document.querySelector("#list-courses"); // Get the element with the ID "list-courses"
+
+// Create an array to store cart items
+let itemsCart = [];
+
+// Call the function to load event listeners
+loadEventListeners();
+
+function loadEventListeners() {
+  // Listen for click events on the list of courses
+  listCourses.addEventListener("click", addCourse);
+
+  // Listen for click events on the cart
+  cart.addEventListener("click", deleteCourse);
+
+  // Listen for click events on the empty cart button
+  emptyCartBtn.addEventListener("click", () => {
+    itemsCart = []; // Empty the cart items array
+    cleanHtml(); // Call the function to clear the cart content in the DOM
+  });
+}
+
 // Function to add a course to the cart
 function addCourse(event) {
   event.preventDefault();
