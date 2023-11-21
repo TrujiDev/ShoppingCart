@@ -22,7 +22,7 @@ This is a simple web application for managing a shopping cart for online courses
    You can clone this repository to your local machine using the following command:
 
    ```bash
-   git clone https://github.com/Zsaidgry/ShoppingCart
+   git clone https://github.com/TrujiDev/ShoppingCart
    ```
 
 2. **Open the HTML File:**
